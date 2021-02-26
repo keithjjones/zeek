@@ -4,10 +4,11 @@
 
 #include "zeek/packet_analysis/Analyzer.h"
 #include "zeek/packet_analysis/Component.h"
+#include "zeek/packet_analysis/protocol/ip/IPBasedAnalyzer.h"
 
 namespace zeek::packet_analysis::ICMP {
 
-class ICMPAnalyzer : public Analyzer {
+class ICMPAnalyzer : public zeek::packet_analysis::IP::IPBasedAnalyzer {
 public:
 	ICMPAnalyzer();
 	~ICMPAnalyzer() override;
