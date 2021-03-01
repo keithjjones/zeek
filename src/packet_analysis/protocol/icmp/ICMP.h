@@ -20,8 +20,17 @@ public:
 		return std::make_shared<ICMPAnalyzer>();
 		}
 
-private:
+protected:
 
+	/**
+	 * Returns the port mask for an analyzer used by IsLikelyServerPort.
+	 */
+	uint32_t GetServerPortMask() const override { return ICMP_PORT_MASK; }
+
+	/**
+	 * Returns the transport protocol. Used by NewConn().
+	 */
+	TransportProto GetTransportProto() const override { return TRANSPORT_ICMP; }
 };
 
 }
