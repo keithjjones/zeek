@@ -71,7 +71,7 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 		}
 	}
 
-void SSL_Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t seq, const IP_Hdr* ip, int caplen)
+void SSL_Analyzer::DeliverData(int len, const u_char* data, bool orig)
 {
 	tcp::TCP_ApplicationAnalyzer::DeliverStream(len, data, orig);
 
