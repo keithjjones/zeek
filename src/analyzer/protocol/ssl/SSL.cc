@@ -71,6 +71,20 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 		}
 	}
 
+void SSL_Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t seq, const IP_Hdr* ip, int caplen)
+{
+	tcp::TCP_ApplicationAnalyzer::DeliverStream(len, data, orig);
+
+	try
+		{
+		interp->NewData(orig, data, data + len);
+		}
+	catch ( const binpac::Exception& e )
+		{
+		ProtocolViolation(fmt("Binpac exception: %s", e.c_msg()));
+		}
+}
+
 void SSL_Analyzer::SendHandshake(uint16_t raw_tls_version, const u_char* begin, const u_char* end, bool orig)
 	{
 	handshake_interp->set_record_version(raw_tls_version);

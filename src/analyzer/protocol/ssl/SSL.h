@@ -18,6 +18,9 @@ public:
 	// Overriden from Analyzer.
 	void Done() override;
 	void DeliverStream(int len, const u_char* data, bool orig) override;
+	// Note that this works only if the packets are already ordered!  This was written for non-TCP applications that need
+	// to feel UDP SSL data, like OpenVPN.
+	void DeliverPacket(int len, const u_char* data, bool orig, uint64_t seq, const IP_Hdr* ip, int caplen) override;
 	void Undelivered(uint64_t seq, int len, bool orig) override;
 
 	void SendHandshake(uint16_t raw_tls_version, const u_char* begin, const u_char* end, bool orig);
