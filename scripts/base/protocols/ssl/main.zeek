@@ -193,7 +193,7 @@ function log_record(info: Info)
 function finish(c: connection, remove_analyzer: bool)
 	{
 	log_record(c$ssl);
-	if ( remove_analyzer && disable_analyzer_after_detection && c?$ssl && c$ssl?$analyzer_id && get_port_transport_proto(c$id$resp_p) == tcp )
+	if ( remove_analyzer && disable_analyzer_after_detection && c?$ssl && c$ssl?$analyzer_id )
 		{
 		disable_analyzer(c$id, c$ssl$analyzer_id);
 		delete c$ssl$analyzer_id;

@@ -74,7 +74,44 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 void SSL_Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t seq, const IP_Hdr* ip, int caplen)
 {
 	tcp::TCP_ApplicationAnalyzer::DeliverPacket(len, data, orig, seq, ip, caplen);
-//	tcp::TCP_ApplicationAnalyzer::DeliverStream(len, data, orig);
+
+	// This will check if sequences are in order and throw a violation if not.
+	if (orig)
+		{
+		if (orig_seq == 0)
+			{
+			orig_seq = seq;
+			}
+		else
+			{
+			if (seq == orig_seq+1)
+				{
+				orig_seq = seq;
+				}
+			else
+				{
+				ProtocolViolation(fmt("Out of order orig sequences."));
+				}
+			}
+		}
+	else
+		{
+		if (resp_seq == 0)
+			{
+			resp_seq = seq;
+			}
+		else
+			{
+			if (seq == resp_seq+1)
+				{
+				resp_seq = seq;
+				}
+			else
+				{
+				ProtocolViolation(fmt("Out of order resp sequences."));
+				}
+			}
+		}
 
 	if ( had_gap )
 		// If only one side had a content gap, we could still try to
