@@ -73,10 +73,8 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 
 void SSL_Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t seq, const IP_Hdr* ip, int caplen)
 {
-	tcp::TCP_ApplicationAnalyzer::DeliverStream(len, data, orig);
-
-	if ( TCP() && TCP()->IsPartial() )
-		return;
+	tcp::TCP_ApplicationAnalyzer::DeliverPacket(len, data, orig, seq, ip, caplen);
+//	tcp::TCP_ApplicationAnalyzer::DeliverStream(len, data, orig);
 
 	if ( had_gap )
 		// If only one side had a content gap, we could still try to
