@@ -1,5 +1,7 @@
 #pragma once
 
+#define SSL_HAS_NEWDATA_FUNCTION
+
 #include "events.bif.h"
 
 #include "analyzer/protocol/tcp/TCP.h"
