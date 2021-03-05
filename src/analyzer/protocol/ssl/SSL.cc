@@ -52,8 +52,8 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 	{
 	tcp::TCP_ApplicationAnalyzer::DeliverStream(len, data, orig);
 
-	assert(TCP());
-	if ( TCP()->IsPartial() )
+	//assert(TCP());
+	if ( TCP() && TCP()->IsPartial() )
 		return;
 
 	if ( had_gap )
@@ -70,18 +70,6 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 		ProtocolViolation(fmt("Binpac exception: %s", e.c_msg()));
 		}
 	}
-
-void SSL_Analyzer::NewData(int len, const u_char* data, bool orig)
-{
-	try
-		{
-		interp->NewData(orig, data, data + len);
-		}
-	catch ( const binpac::Exception& e )
-		{
-		ProtocolViolation(fmt("Binpac exception: %s", e.c_msg()));
-		}
-}
 
 void SSL_Analyzer::SendHandshake(uint16_t raw_tls_version, const u_char* begin, const u_char* end, bool orig)
 	{

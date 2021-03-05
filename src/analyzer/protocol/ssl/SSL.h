@@ -30,9 +30,6 @@ public:
 	// Overriden from tcp::TCP_ApplicationAnalyzer.
 	void EndpointEOF(bool is_orig) override;
 
-	// For non TCP applications.  Data must be ordered!
-	void NewData(int len, const u_char* data, bool orig);
-
 	static analyzer::Analyzer* Instantiate(Connection* conn)
 		{ return new SSL_Analyzer(conn); }
 
