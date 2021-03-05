@@ -75,44 +75,6 @@ void SSL_Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_
 {
 	tcp::TCP_ApplicationAnalyzer::DeliverPacket(len, data, orig, seq, ip, caplen);
 
-	// This will check if sequences are in order and throw a violation if not.
-	if (orig)
-		{
-		if (orig_seq == 0)
-			{
-			orig_seq = seq;
-			}
-		else
-			{
-			if (seq == orig_seq+1)
-				{
-				orig_seq = seq;
-				}
-			else
-				{
-				ProtocolViolation(fmt("Out of order orig sequences."));
-				}
-			}
-		}
-	else
-		{
-		if (resp_seq == 0)
-			{
-			resp_seq = seq;
-			}
-		else
-			{
-			if (seq == resp_seq+1)
-				{
-				resp_seq = seq;
-				}
-			else
-				{
-				ProtocolViolation(fmt("Out of order resp sequences."));
-				}
-			}
-		}
-
 	if ( had_gap )
 		// If only one side had a content gap, we could still try to
 		// deliver data to the other side if the script layer can handle this.
