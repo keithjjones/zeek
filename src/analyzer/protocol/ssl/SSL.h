@@ -17,7 +17,7 @@ public:
 	explicit SSL_Analyzer(Connection* conn);
 	~SSL_Analyzer() override;
 
-	// Overriden from Analyzer.
+	// Overridden from Analyzer.
 	void Done() override;
 	void DeliverStream(int len, const u_char* data, bool orig) override;
 	void Undelivered(uint64_t seq, int len, bool orig) override;
@@ -27,7 +27,7 @@ public:
 	// Tell the analyzer that encryption has started.
 	void StartEncryption();
 
-	// Overriden from tcp::TCP_ApplicationAnalyzer.
+	// Overridden from tcp::TCP_ApplicationAnalyzer.
 	void EndpointEOF(bool is_orig) override;
 
 	static analyzer::Analyzer* Instantiate(Connection* conn)
