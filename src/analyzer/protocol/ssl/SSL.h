@@ -40,9 +40,6 @@ protected:
 	binpac::SSL::SSL_Conn* interp;
 	binpac::TLSHandshake::Handshake_Conn* handshake_interp;
 	bool had_gap;
-	// Used for limited non-TCP tracking
-	uint64_t orig_seq;
-	uint64_t resp_seq;
 };
 
 } } // namespace analyzer::*
