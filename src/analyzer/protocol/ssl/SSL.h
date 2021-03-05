@@ -40,6 +40,7 @@ protected:
 	binpac::SSL::SSL_Conn* interp;
 	binpac::TLSHandshake::Handshake_Conn* handshake_interp;
 	bool had_gap;
+
 };
 
 } } // namespace analyzer::*
