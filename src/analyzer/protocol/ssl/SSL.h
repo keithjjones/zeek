@@ -1,5 +1,7 @@
 #pragma once
 
+#define SSL_ALLOWS_UDP
+
 #include "events.bif.h"
 
 #include "analyzer/protocol/tcp/TCP.h"
