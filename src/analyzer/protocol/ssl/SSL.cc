@@ -71,15 +71,8 @@ void SSL_Analyzer::DeliverStream(int len, const u_char* data, bool orig)
 		}
 	}
 
-void SSL_Analyzer::DeliverPacket(int len, const u_char* data, bool orig, uint64_t seq, const IP_Hdr* ip, int caplen)
+void SSL_Analyzer::NewData(int len, const u_char* data, bool orig)
 {
-	tcp::TCP_ApplicationAnalyzer::DeliverPacket(len, data, orig, seq, ip, caplen);
-
-	if ( had_gap )
-		// If only one side had a content gap, we could still try to
-		// deliver data to the other side if the script layer can handle this.
-		return;
-
 	try
 		{
 		interp->NewData(orig, data, data + len);
